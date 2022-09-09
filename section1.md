@@ -41,7 +41,7 @@ This abstraction is the key to managing all this complexity. Good abstractions t
 
 This point is so important that it is worth repeating in different words. With all due respect to the industrial engineers who so carefully designed the Macintosh, hardware is ugly. Real processors, memories, disks, and other devices are very complicated and present difficult, awkward, idiosyncratic, and inconsistent inter- faces to the people who have to write software to use them. Sometimes this is due to the need for backward compatibility with older hardware. Other times it is an attempt to save money. Often, however, the hardware designers do not realize (or care) how much trouble they are causing for the software. One of the major tasks of the operating system is to hide the hardware and present programs (and their programmers) with nice, clean, elegant, consistent, abstractions to work with in- stead. Operating systems turn the ugly into the beautiful, as shown in Fig. 1-2.</h3>
 
-![Figure 1-2]()
+![Figure 1-2](/figure1.2.png)
 
 <h3 align="justify">It should be noted that the operating system’s real customers are the applica- tion programs (via the application programmers, of course). They are the ones who deal directly with the operating system and its abstractions. In contrast, end users deal with the abstractions provided by the user interface, either a com- mand-line shell or a graphical interface. While the abstractions at the user interface may be similar to the ones provided by the operating system, this is not always the case. To make this point clearer, consider the normal Windows desktop and the line-oriented command prompt. Both are programs running on the Windows oper- ating system and use the abstractions Windows provides, but they offer very dif- ferent user interfaces. Similarly, a Linux user running Gnome or KDE sees a very different interface than a Linux user working directly on top of the underlying X Window System, but the underlying operating system abstractions are the same in both cases.
 
@@ -89,7 +89,7 @@ Given the high cost of the equipment, it is not surprising that people quickly l
 
 After about an hour of collecting a batch of jobs, the cards were read onto a magnetic tape, which was carried into the machine room, where it was mounted on a tape drive. The operator then loaded a special program (the ancestor of today’s operating system), which read the first job from tape and ran it. The output was written onto a second tape, instead of being printed. After each job finished, the operating system automatically read the next job from the tape and began running it.
 
-![Figure 1-3]()
+![Figure 1-3](/figure1.3.png)
 
 When the whole batch was done, the operator removed the input and output tapes, replaced the input tape with the next batch, and brought the output tape to a 1401 for printing <b>off line</b> (i.e., not connected to the main computer).
 
@@ -101,7 +101,7 @@ Large second-generation computers were used mostly for scientific and engin- eer
 
 By the early 1960s, most computer manufacturers had two distinct, incompati- ble, product lines. On the one hand, there were the word-oriented, large-scale sci- entific computers, such as the 7094, which were used for industrial-strength nu- merical calculations in science and engineering. On the other hand, there were the
 
-![figure 1-4]()
+![figure 1-4](/figure1.4.png)
 
 character-oriented, commercial computers, such as the 1401, which were widely used for tape sorting and printing by banks and insurance companies.
 
@@ -119,7 +119,7 @@ Despite its enormous size and problems, OS/360 and the similar third-genera- tio
 
 The solution that evolved was to partition memory into several pieces, with a different job in each partition, as shown in Fig. 1-5. While one job was waiting for I/O to complete, another job could be using the CPU. If enough jobs could be held in main memory at once, the CPU could be kept busy nearly 100% of the time. Having multiple jobs safely in memory at once requires special hardware to protect each job against snooping and mischief by the other ones, but the 360 and other third-generation systems were equipped with this hardware.
 
-![Figure 1-5]()
+![Figure 1-5](/figure1.5.png)
 
 Another major feature present in third-generation operating systems was the ability to read jobs from cards onto the disk as soon as they were brought to the computer room. Then, whenever a running job finished, the operating system could load a new job from the disk into the now-empty partition and run it. This techni- que is called <b>spooling</b> (from <b>Simultaneous Peripheral Operation On Line</b>) and was also used for output. With spooling, the 1401s were no longer needed, and much carrying of tapes disappeared.
 
@@ -217,7 +217,7 @@ For phone manufacturers, Android had the advantage that it was open source and a
 
 Conceptually, a simple personal computer can be abstracted to a model resem- bling that of Fig. 1-6. The CPU, memory, and I/O devices are all connected by a system bus and communicate with one another over it. Modern personal computers have a more complicated structure, involving multiple buses, which we will look at later. For the time being, this model will be sufficient. In the following sections, we will briefly review these components and examine some of the hardware issues that are of concern to operating system designers. Needless to say, this will be a very compact summary. Many books have been written on the subject of computer hardware and computer organization. Two well-known ones are by Tanenbaum and Austin (2012) and Patterson and Hennessy (2013).
 
-![Figure 1-6]()
+![Figure 1-6](/figure1.6.png)
 
 <b>1.3.1 Processors</b>
 
@@ -237,7 +237,7 @@ To improve performance, CPU designers have long abandoned the simple model of fe
 
 Pipelines cause compiler writers and operating system writers great headaches be- cause they expose the complexities of the underlying machine to them and they have to deal with them.
 
-![Figure 1-7]()
+![Figure 1-7](/figure1.7.png)
 
 Even more advanced than a pipeline design is a <b>superscalar</b> CPU, shown in Fig. 1-7(b). In this design, multiple execution units are present, for example, one for integer arithmetic, one for floating-point arithmetic, and one for Boolean opera- tions. Two or more instructions are fetched at once, decoded, and dumped into a holding buffer until they can be executed. As soon as an execution unit becomes available, it looks in the holding buffer to see if there is an instruction it can hand- le, and if so, it removes the instruction from the buffer and executes it. An implica- tion of this design is that program instructions are often executed out of order. For the most part, it is up to the hardware to make sure the result produced is the same one a sequential implementation would have produced, but an annoying amount of the complexity is foisted onto the operating system, as we shall see.
 
@@ -263,7 +263,7 @@ Beyond multithreading, many CPU chips now have four, eight, or more complete pro
 
 Incidentally, in terms of sheer numbers, nothing beats a modern <b>GPU</b> (<b>Graphics Processing Unit</b>). A GPU is a processor with, literally, thousands of tiny cores. They are very good for many small computations done in parallel, like rendering polygons in graphics applications. They are not so good at serial tasks. They are also hard to program. While GPUs can be useful for operating systems (e.g., en- cryption or processing of network traffic), it is not likely that much of the operating system itself will run on the GPUs.</h3>
 
-![Figure 1-8]()
+![Figure 1-8](/figure1.8.png)
 
 <b>1.3.1 Memory</b>
 
@@ -271,7 +271,7 @@ Incidentally, in terms of sheer numbers, nothing beats a modern <b>GPU</b> (<b>G
 
 The top layer consists of the registers internal to the CPU. They are made of the same material as the CPU and are thus just as fast as the CPU. Consequently, there is no delay in accessing them. The storage capacity available in them is typically 32 × 32 bits on a 32-bit CPU and 64 × 64 bits on a 64-bit CPU. Less than 1 KB in both cases. Programs must manage the registers (i.e., decide what to keep in them) themselves, in software.
 
-![Figure 1-9]()
+![Figure 1-9](/figure1.9.png)
 
 Next comes the cache memory, which is mostly controlled by the hardware. Main memory is divided up into cache lines, typically 64 bytes, with addresses 0 to 63 in cache line 0, 64 to 127 in cache line 1, and so on. The most heavily used <b>cache lines</b> are kept in a high-speed cache located inside or very close to the CPU. When the program needs to read a memory word, the cache hardware checks to see if the line needed is in the cache. If it is, called a <b>cache hit</b>, the request is satisfied from the cache and no memory request is sent over the bus to the main memory. Cache hits normally take about two clock cycles. Cache misses have to go to memory, with a substantial time penalty. Cache memory is limited in size due to its high cost. Some machines have two or even three levels of cache, each one slower and bigger than the one before it.
 
