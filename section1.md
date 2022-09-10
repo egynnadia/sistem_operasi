@@ -1,6 +1,6 @@
 <h1 align="center">Modern Operating Systems <br>FOURTH EDITION <br><br>1 <br>Introduction</h1>
 
-<h3 align="justify">A modern computer consists of one or more processors, some main memory,disks, printers, a keyboard, a mouse, a display, network interfaces, and various other input/output devices. All in all, a complex system.oo If every application pro- grammer had to understand how all these things work in detail, no code would ever get written. Furthermore, managing all these components and using them optimally is an exceedingly challenging job. For this reason, computers are equipped with a layer of software called the **operating system**, whose job is to provide user pro- grams with a better, simpler, cleaner, model of the computer and to handle manag- ing all the resources just mentioned. Operating systems are the subject of this book.
+<p align="justify">A modern computer consists of one or more processors, some main memory,disks, printers, a keyboard, a mouse, a display, network interfaces, and various other input/output devices. All in all, a complex system.oo If every application pro- grammer had to understand how all these things work in detail, no code would ever get written. Furthermore, managing all these components and using them optimally is an exceedingly challenging job. For this reason, computers are equipped with a layer of software called the **operating system**, whose job is to provide user pro- grams with a better, simpler, cleaner, model of the computer and to handle manag- ing all the resources just mentioned. Operating systems are the subject of this book.
 
 Most readers will have had some experience with an operating system such as Windows, Linux, FreeBSD, or OS X, but appearances can be deceiving. The pro- gram that users interact with, usually called the <b>shell</b> when it is text based and the <b>GUI</b> (<b>Graphical User Interface</b>)—which is pronounced ‘‘gooey’’—when it uses icons, is actually not part of the operating system, although it uses the operating system to get its work done.
 
@@ -25,7 +25,7 @@ It should be clear now why operating systems live a long time—they are very ha
 
 Besides Windows, the other main example we will use throughout this book is UNIX and its variants and clones. It, too, has evolved over the years, with versions like System V, Solaris, and FreeBSD being derived from the original system, whereas Linux is a fresh code base, although very closely modeled on UNIX and highly compatible with it. We will use examples from UNIX throughout this book and look at Linux in detail in Chap. 10.
 
-In this chapter we will briefly touch on a number of key aspects of operating systems, including what they are, their history, what kinds are around, some of the basic concepts, and their structure. We will come back to many of these important topics in later chapters in more detail.</h3>
+In this chapter we will briefly touch on a number of key aspects of operating systems, including what they are, their history, what kinds are around, some of the basic concepts, and their structure. We will come back to many of these important topics in later chapters in more detail.</p>
 
 <h2 align="justify"><b>1.1 WHAT IS AN OPERATING SYSTEM?<b></h2>
 
