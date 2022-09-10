@@ -32,7 +32,7 @@ However, on many computers addresses are 32 or 64 bits, giving an address space 
 <p align="justify">Another key concept supported by virtually all operating systems is the file system. As noted before, a major function of the operating system is to hide the peculiarities of the disks and other I/O devices and present the programmer with a nice, clean abstract model of device-independent files. System calls are obviously needed to create files, remove files, read files, and write files. Before a file can be read, it must be located on the disk and opened, and after being read it should be closed, so calls are provided to do these things.
 To provide a place to keep files, most PC operating systems have the concept of a <b>directory</b> as a way of grouping files together. A student, for example, might have one directory for each course he is taking (for the programs needed for that course), another directory for his electronic mail, and still another directory for his World Wide Web home page. System calls are then needed to create and remove directories. Calls are also provided to put an existing file in a directory and to re- move a file from a directory. Directory entries may be either files or other direc- tories. This model also gives rise to a hierarchy—the file system—as shown in Fig. 1-14.
 
-![Figure 1-14]()
+![Figure 1-14](/figure1.14.png)
 
 The process and file hierarchies both are organized as trees, but the similarity stops there. Process hierarchies usually are not very deep (more than three levels is unusual), whereas file hierarchies are commonly four, five, or even more levels deep. Process hierarchies are typically short-lived, generally minutes at most, whereas the directory hierarchy may exist for years. Ownership and protection also differ for processes and files. Typically, only a parent process may control or even access a child process, but mechanisms nearly always exist to allow files and direc- tories to be read by a wider group than just the owner.
 Every file within the directory hierarchy can be specified by giving its <b>path name</b> from the top of the directory hierarchy, the <b>root directory</b>. Such absolute path names consist of the list of directories that must be traversed from the root di- rectory to get to the file, with slashes separating the components. In Fig. 1-14, the path for file CS101 is /Faculty/Prof.Brown/Courses/CS101. The leading slash indi- cates that the path is absolute, that is, starting at the root directory. As an aside, in Windows, the backslash (\) character is used as the separator instead of the slash (/) character (for historical reasons), so the file path given above would be written as \Faculty\Prof.Brown\Courses\CS101. Throughout this book we will generally use the UNIX convention for paths.
@@ -41,12 +41,12 @@ Before a file can be read or written, it must be opened, at which time the per- 
 Another important concept in UNIX is the mounted file system. Most desktop computers have one or more optical drives into which CD-ROMs, DVDs, and Blu- ray discs can be inserted. They almost always have USB ports, into which USB memory sticks (really, solid state disk drives) can be plugged, and some computers have floppy disks or external hard disks. To provide an elegant way to deal with these removable media UNIX allows the file system on the optical disc to be at- tached to the main tree. Consider the situation of Fig. 1-15(a). Before the mount call, the <b>root file system</b>, on the hard disk, and a second file system, on a CD- ROM, are separate and unrelated.
 However, the file system on the CD-ROM cannot be used, because there is no way to specify path names on it. UNIX does not allow path names to be prefixed by a drive name or number; that would be precisely the kind of device dependence that operating systems ought to eliminate. Instead, the mount system call allows the file system on the CD-ROM to be attached to the root file system wherever the program wants it to be. In Fig. 1-15(b) the file system on the CD-ROM has been mounted on directory b, thus allowing access to files /b/x and /b/y. If directory b had contained any files they would not be accessible while the CD-ROM was mounted, since /b would refer to the root directory of the CD-ROM. (Not being able to access these files is not as serious as it at first seems: file systems are nearly always mounted on empty directories.) If a system contains multiple hard disks, they can all be mounted into a single tree as well.
 
-![Figure 1-15]()
+![Figure 1-15](/figure1.15.png)
 
 Another important concept in UNIX is the <b>special file</b>. Special files are pro- vided in order to make I/O devices look like files. That way, they can be read and written using the same system calls as are used for reading and writing files. Two kinds of special files exist: <b>block special files</b> and <b>character special files</b>. Block special files are used to model devices that consist of a collection of randomly ad- dressable blocks, such as disks. By opening a block special file and reading, say, block 4, a program can directly access the fourth block on the device, without regard to the structure of the file system contained on it. Similarly, character spe- cial files are used to model printers, modems, and other devices that accept or out- put a character stream. By convention, the special files are kept in the /dev direc- tory. For example, /dev/lp might be the printer (once called the line printer).
 The last feature we will discuss in this overview relates to both processes and files: pipes. A <b>pipe</b> is a sort of pseudofile that can be used to connect two proc- esses, as shown in Fig. 1-16. If processes A and B wish to talk using a pipe, they must set it up in advance. When process A wants to send data to process B, it writes on the pipe as though it were an output file. In fact, the implementation of a pipe is very much like that of a file. Process B can read the data by reading from the pipe as though it were an input file. Thus, communication between processes in UNIX looks very much like ordinary file reads and writes. Stronger yet, the only way a process can discover that the output file it is writing on is not really a file, but a pipe, is by making a special system call. File systems are very important. We will have much more to say about them in Chap. 4 and also in Chaps. 10 and 11.
 
-![figure 1-16]()</p>
+![figure 1-16](/figure1.16.png)</p>
 
 <b>1.5.4 Input/Output</b>
 
@@ -138,7 +138,7 @@ System calls are performed in a series of steps. To make this concept clearer, l
 C and C++ compilers push the parameters onto the stack in reverse order for historical reasons (having to do with making the first parameter to printf, the for- mat string, appear on top of the stack). The first and third parameters are called by value, but the second parameter is passed by reference, meaning that the address of the buffer (indicated by &) is passed, not the contents of the buffer. Then comes the actual call to the library procedure (step 4). This instruction is the normal proce- dure-call instruction used to call all procedures.
 The library procedure, possibly written in assembly language, typically puts the system-call number in a place where the operating system expects it, such as a register (step 5). Then it executes a TRAP instruction to switch from user mode to kernel mode and start execution at a fixed address within the kernel (step 6). The TRAP instruction is actually fairly similar to the procedure-call instruction in the sense that the instruction following it is taken from a distant location and the return address is saved on the stack for use later.
 
-![figure 1-17]()
+![figure 1-17](/figure1.17.png)
 
 Nevertheless, the TRAP instruction also differs from the procedure-call instruc- tion in two fundamental ways. First, as a side effect, it switches into kernel mode. The procedure call instruction does not change the mode. Second, rather than giv- ing a relative or absolute address where the procedure is located, the TRAP instruc- tion cannot jump to an arbitrary address. Depending on the architecture, either it jumps to a single fixed location or there is an 8-bit field in the instruction giving the index into a table in memory containing jump addresses, or equivalent.
 The kernel code that starts following the TRAP examines the system-call num- ber and then dispatches to the correct system-call handler, usually via a table of pointers to system-call handlers indexed on system-call number (step 7). At that point the system-call handler runs (step 8). Once it has completed its work, control may be returned to the user-space library procedure at the instruction following the TRAP instruction (step 9). This procedure then returns to the user program in the usual way procedure calls return (step 10).
@@ -154,12 +154,12 @@ As an aside, it is worth pointing out that the mapping of POSIX procedure calls 
 
 The first group of calls in Fig. 1-18 deals with process management. Fork is a good place to start the discussion. Fork is the only way to create a new process in POSIX. It creates an exact duplicate of the original process, including all the file descriptors, registers—everything. After the fork, the original process and the copy (the parent and child) go their separate ways. All the variables have identical val- ues at the time of the fork, but since the parent’s data are copied to create the child, subsequent changes in one of them do not affect the other one. (The program text, which is unchangeable, is shared between parent and child.) The fork call returns a value, which is zero in the child and equal to the child’s <b>PID</b> (<b>Process IDentifier</b>) in the parent. Using the returned PID, the two processes can see which one is the parent process and which one is the child process.
 
-![Figure 1-18]()
+![Figure 1-18](/figure1.18.png)
 
 In most cases, after a fork, the child will need to execute different code from the parent. Consider the case of the shell. It reads a command from the terminal, forks off a child process, waits for the child to execute the command, and then reads the next command when the child terminates. To wait for the child to finish, the parent executes a waitpid system call, which just waits until the child terminates (any child if more than one exists). Waitpid can wait for a specific child, or for any old child by setting the first parameter to −1. When waitpid completes, the address pointed to by the second parameter, statloc, will be set to the child process’ exit status (normal or abnormal termination and exit value). Various options are also provided, specified by the third parameter. For example, returning immediately if no child has already exited.
 Now consider how fork is used by the shell. When a command is typed, the shell forks off a new process. This child process must execute the user command. It does this by using the execve system call, which causes its entire core image to be replaced by the file named in its first parameter. (Actually, the system call itself is exec, but several library procedures call it with different parameters and slightly different names. We will treat these as system calls here.) A highly simplified shell illustrating the use of fork, waitpid, and execve is shown in Fig. 1-19.
 
-![figure 1-19]()
+![figure 1-19](/figure1.19.png)
 
 In the most general case, execve has three parameters: the name of the file to be executed, a pointer to the argument array, and a pointer to the environment array. These will be described shortly. Various library routines, including execl, execv, execle, and execve, are provided to allow the parameters to be omitted or specified in various ways. Throughout this book we will use the name exec to represent the system call invoked by all of these.
 Let us consider the case of a command such as 
@@ -181,7 +181,7 @@ Processes in UNIX have their memory divided up into three segments: the <b>text 
 Many system calls relate to the file system. In this section we will look at calls that operate on individual files; in the next one we will examine those that involve directories or the file system as a whole.
 To read or write a file, it must first be opened. This call specifies the file name to be opened, either as an absolute path name or relative to the working directory, as well as a code of O RDONLY, O WRONLY, or O RDWR, meaning open for reading, writing, or both. To create a new file, the O CREAT parameter is used.
 
-![figure 1-20]()
+![figure 1-20](/figure1.20.png)
 
 The file descriptor returned can then be used for reading or writing. Afterward, the file can be closed by close, which makes the file descriptor available for reuse on a subsequent open.
 The most heavily used calls are undoubtedly read and write. We saw read ear- lier. Write has the same parameters.
@@ -198,7 +198,7 @@ link('/user/jim/memo","/usr/ast/note");
 
 the file memo in jim’s directory is now entered into ast’s directory under the name note. Thereafter, /usr/jim/memo and /usr/ast/note refer to the same file. As an aside, whether user directories are kept in /usr, /user, /home, or somewhere else is simply a decision made by the local system administrator.
 
-![figure 1-12]()
+![figure 1-21](/figure1.21.png)
 
 Understanding how link works will probably make it clearer what it does. Every file in UNIX has a unique number, its i-number, that identifies it. This i-number is an index into a table of <b>i-nodes</b>, one per file, telling who owns the file, where its disk blocks are, and so on. A directory is simply a file containing a set of (i-number, ASCII name) pairs. In the first versions of UNIX, each directory entry was 16 bytes—2 bytes for the i-number and 14 bytes for the name. Now a more complicated structure is needed to support long file names, but conceptually a di- rectory is still a set of (i-number, ASCII name) pairs. In Fig. 1-21, mail has i-num- ber 16, and so on. What link does is simply create a brand new directory entry with a (possibly new) name, using the i-number of an existing file. In Fig. 1-21(b), two entries have the same i-number (70) and thus refer to the same file. If either one is later removed, using the unlink system call, the other one remains. If both are re- moved, UNIX sees that no entries to the file exist (a field in the i-node keeps track of the number of directory entries pointing to the file), so the file is removed from the disk.
 As we have mentioned earlier, the mount system call allows two file systems to be merged into one. A common situation is to have the root file system, containing the binary (executable) versions of the common commands and other heavily used files, on a hard disk (sub)partition and user files on another (sub)partition. Further, the user can then insert a USB disk with files to be read.
@@ -209,7 +209,7 @@ mount("/dev/sdb0", "/mnt", 0);
 
 where the first parameter is the name of a block special file for USB drive 0, the second parameter is the place in the tree where it is to be mounted, and the third parameter tells whether the file system is to be mounted read-write or read-only.
 
-![figure 1-22]()
+![figure 1-22](/figure1.22.png)
 
 After the mount call, a file on drive 0 can be accessed by just using its path from the root directory or the working directory, without regard to which drive it is on. In fact, second, third, and fourth drives can also be mounted anywhere in the tree. The mount call makes it possible to integrate removable media into a single integrated file hierarchy, without having to worry about which device a file is on. Although this example involves CD-ROMs, portions of hard disks (often called <b>partitions</b> or <b>minor devices</b>) can also be mounted this way, as well as external hard disks and USB sticks. When a file system is no longer needed, it can be unmounted with the umount system call.
 
@@ -240,7 +240,7 @@ The next six calls operate on files and are functionally similar to their UNIX c
 Windows has directories and they are created with CreateDirector y and RemoveDirector y A P I calls, respectively. There is also a notion of a current direc- tory, set by SetCurrentDirector y. The current time of day is acquired using GetLo- calTime.
 The Win32 interface does not have links to files, mounted file systems, securi- ty, or signals, so the calls corresponding to the UNIX ones do not exist. Of course, Win32 has a huge number of other calls that UNIX does not have, especially for managing the GUI. Windows Vista has an elaborate security system and also sup- ports file links. Windows 7 and 8 add yet more features and system calls.
 
-![figure 1-23]()
+![figure 1-23](/figure1.23.png)
 
 One last note about Win32 is perhaps worth making. Win32 is not a terribly uniform or consistent interface. The main culprit here was the need to be back- ward compatible with the previous 16-bit interface used in Windows 3.x.
 
@@ -263,14 +263,14 @@ This organization suggests a basic structure for the operating system:
 In this model, for each system call there is one service procedure that takes care of it and executes it. The utility procedures do things that are needed by several ser- vice procedures, such as fetching data from user programs. This division of the procedures into three layers is shown in Fig. 1-24.
 In addition to the core operating system that is loaded when the computer is booted, many operating systems support loadable extensions, such as I/O device drivers and file systems. These components are loaded on demand. In UNIX they are called <b>shared libraries</b>. In Windows they are called <b>DLLs</b> (<b>Dynamic-Link Libraries</b>). They have file extension .dll and the C:\Windows\system32 directory on Windows systems has well over 1000 of them.
 
-![figure 1-24]()
+![figure 1-24](/figure1.24.png)
 
 <b>1.7.2 Layered Systems</b>
 
 A generalization of the approach of Fig. 1-24 is to organize the operating sys- tem as a hierarchy of layers, each one constructed upon the one below it. The first system constructed in this way was the THE system built at the Technische Hoge- school Eindhoven in the Netherlands by E. W. Dijkstra (1968) and his students. The THE system was a simple batch system for a Dutch computer, the Electrolog- ica X8, which had 32K of 27-bit words (bits were expensive back then).
 The system had six layers, as shown in Fig. 1-25. Layer 0 dealt with allocation of the processor, switching between processes when interrupts occurred or timers expired. Above layer 0, the system consisted of sequential processes, each of which could be programmed without having to worry about the fact that multiple processes were running on a single processor. In other words, layer 0 provided the basic multiprogramming of the CPU.
 
-![figure 1-25]()
+![figure 1-25](/figure1.25.png)
 
 Layer 1 did the memory management. It allocated space for processes in main memory and on a 512K word drum used for holding parts of processes (pages) for which there was no room in main memory. Above layer 1, processes did not have to worry about whether they were in memory or on the drum; the layer 1 software took care of making sure pages were brought into memory at the moment they were needed and removed when they were not needed.
 Layer 2 handled communication between each process and the operator con- sole (that is, the user). On top of this layer each process effectively had its own op- erator console. Layer 3 took care of managing the I/O devices and buffering the information streams to and from them. Above layer 3 each process could deal with abstract I/O devices with nice properties, instead of real devices with many pecu- liarities. Layer 4 was where the user programs were found. They did not have to worry about process, memory, console, or I/O management. The system operator process was located in layer 5.
@@ -286,7 +286,7 @@ Many microkernels have been implemented and deployed for decades (Haertig et al.
 The MINIX 3 microkernel is only about 12,000 lines of C and some 1400 lines of assembler for very low-level functions such as catching interrupts and switching processes. The C code manages and schedules processes, handles interprocess communication (by passing messages between processes), and offers a set of about 40 kernel calls to allow the rest of the operating system to do its work. These calls perform functions like hooking handlers to interrupts, moving data between ad- dress spaces, and installing memory maps for new processes. The process structure of MINIX 3 is shown in Fig. 1-26, with the kernel call handlers labeled Sys. The device driver for the clock is also in the kernel because the scheduler interacts closely with it. The other device drivers run as separate user processes.
 Outside the kernel, the system is structured as three layers of processes all run- ning in user mode. The lowest layer contains the device drivers. Since they run in user mode, they do not have physical access to the I/O port space and cannot issue I/O commands directly. Instead, to program an I/O device, the driver builds a struc- ture telling which values to write to which I/O ports and makes a kernel call telling
 
-![figure 1-26]()
+![figure 1-26](/figure1.26.png)
 
 the kernel to do the write. This approach means that the kernel can check to see that the driver is writing (or reading) from I/O it is authorized to use. Consequently (and unlike a monolithic design), a buggy audio driver cannot accidentally write on the disk.
 Above the drivers is another user-mode layer containing the servers, which do most of the work of the operating system. One or more file servers manage the file system(s), the process manager creates, destroys, and manages processes, and so on. User programs obtain operating system services by sending short messages to the servers asking for the POSIX system calls. For example, a process needing to do a read sends a message to one of the file servers telling it what to read.
@@ -300,7 +300,7 @@ A slight variation of the microkernel idea is to distinguish two classes of proc
 Communication between clients and servers is often by message passing. To obtain a service, a client process constructs a message saying what it wants and sends it to the appropriate service. The service then does the work and sends back the answer. If the client and server happen to run on the same machine, certain optimizations are possible, but conceptually, we are still talking about message passing here.
 An obvious generalization of this idea is to have the clients and servers run on different computers, connected by a local or wide-area network, as depicted in Fig. 1-27. Since clients communicate with servers by sending messages, the cli- ents need not know whether the messages are handled locally on their own ma- chines, or whether they are sent across a network to servers on a remote machine. As far as the client is concerned, the same thing happens in both cases: requests are sent and replies come back. Thus the client-server model is an abstraction that can be used for a single machine or for a network of machines. 
 
-![figure 1-27]()
+![figure 1-27](/figure1.27.png)
 
 Increasingly many systems involve users at their home PCs as clients and large machines elsewhere running as servers. In fact, much of the Web operates this way. A PC sends a request for a Web page to the server and the Web page comes back. This is a typical use of the client-server model in a network.
 
@@ -314,7 +314,7 @@ The initial releases of OS/360 were strictly batch systems. Nevertheless, many 3
 This system, originally called CP/CMS and later renamed VM/370 (Seawright and MacKinnon, 1979), was based on an astute observation: a timesharing system provides (1) multiprogramming and (2) an extended machine with a more con- venient interface than the bare hardware. The essence of VM/370 is to completely separate these two functions.
 The heart of the system, known as the <b>virtual machine monitor</b>, runs on the bare hardware and does the multiprogramming, providing not one, but several vir- tual machines to the next layer up, as shown in Fig. 1-28. However, unlike all other operating systems, these virtual machines are not extended machines, with files and other nice features. Instead, they are exact copies of the bare hardware, in- cluding kernel/user mode, I/O, interrupts, and everything else the real machine has.
 
-![figure 1-28]()
+![figure 1-28](/figure1.28.png)
 
 
 Because each virtual machine is identical to the true hardware, each one can run any operating system that will run directly on the bare hardware. Different vir- tual machines can, and frequently do, run different operating systems. On the orig- inal IBM VM/370 system, some ran OS/360 or one of the other large batch or transaction-processing operating systems, while others ran a single-user, interactive system called <b>CMS</b> (<b>Conversational Monitor System</b>) for interactive timesharing users. The latter was popular with programmers.
@@ -327,7 +327,7 @@ Virtualization is also popular in the Web hosting world. Without virtualization,
 Another use of virtualization is for end users who want to be able to run two or more operating systems at the same time, say Windows and Linux, because some of their favorite application packages run on one and some run on the other. This situation is illustrated in Fig. 1-29(a), where the term ‘‘virtual machine monitor’’ has been renamed <b>type 1 hypervisor</b>, which is commonly used nowadays because ‘‘virtual machine monitor’’ requires more keystrokes than people are prepared to
 put up with now. Note that many authors use the terms interchangeably though.
 
-![figure 1-29]()
+![figure 1-29](/figure1.29.png)
 
 While no one disputes the attractiveness of virtual machines today, the problem then was implementation. In order to run virtual machine software on a computer, its CPU must be virtualizable (Popek and Goldberg, 1974). In a nutshell, here is the problem. When an operating system running on a virtual machine (in user mode) executes a privileged instruction, such as modifying the PSW or doing I/O, it is essential that the hardware trap to the virtual-machine monitor so the instruc- tion can be emulated in software. On some CPUs—notably the Pentium, its prede- cessors, and its clones—attempts to execute privileged instructions in user mode are just ignored. This property made it impossible to have virtual machines on this hardware, which explains the lack of interest in the x86 world. Of course, there were interpreters for the Pentium, such as Bochs, that ran on the Pentium, but with a performance loss of one to two orders of magnitude, they were not useful for ser- ious work.
 This situation changed as a result of several academic research projects in the 1990s and early years of this millennium, notably Disco at Stanford (Bugnion et al., 1997) and Xen at Cambridge University (Barham et al., 2003). These research papers led to several commercial products (e.g., VMware Workstation and Xen) and a revival of interest in virtual machines. Besides VMware and Xen, popular hypervisors today include KVM (for the Linux kernel), VirtualBox (by Oracle), and Hyper-V (by Microsoft).
@@ -398,7 +398,7 @@ Since operating systems are very large (five million lines of code is not unusua
 Fortunately, computers are very good at precisely this sort of thing. On UNIX systems, there is a program called make (with numerous variants such as gmake, pmake, etc.) that reads the Makefile, which tells it which files are dependent on which other files. What make does is see which object files are needed to build the operating system binary and for each one, check to see if any of the files it depends on (the code and headers) have been modified subsequent to the last time the ob- ject file was created. If so, that object file has to be recompiled. When make has determined which .c files have to recompiled, it then invokes the C compiler to recompile them, thus reducing the number of compilations to the bare minimum. In large projects, creating the Makefile is error prone, so there are tools that do it automatically.
 Once all the .o files are ready, they are passed to a program called the linker to combine all of them into a single executable binary file. Any library functions cal- led are also included at this point, interfunction references are resolved, and ma- chine addresses are relocated as need be. When the linker is finished, the result is an executable program, traditionally called a.out on UNIX systems. The various components of this process are illustrated in Fig. 1-30 for a program with three C files and two header files. Although we have been discussing operating system de- velopment here, all of this applies to developing any large program.
 
-![figure 1-30]()
+![figure 1-30](/figure1.30.png)
 
 <b>1.8.4 The Model of Run Time</b>
 
