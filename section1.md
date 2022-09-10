@@ -29,7 +29,7 @@ In this chapter we will briefly touch on a number of key aspects of operating sy
 
 <h2 align="justify"><b>1.1 WHAT IS AN OPERATING SYSTEM?<b></h2>
 
-<p align="justify">It is hard to pin down what an operating system is other than saying it is the software that runs in kernel mode—and even that is not always true. Part of the problem is that operating systems perform two essentially unrelated functions: providing application programmers (and application programs, naturally) a clean abstract set of resources instead of the messy hardware ones and managing these hardware resources. Depending on who is doing the talking, you might hear mostly about one function or the other. Let us now look at both.</p><br>
+<p align="justify">It is hard to pin down what an operating system is other than saying it is the software that runs in kernel mode—and even that is not always true. Part of the problem is that operating systems perform two essentially unrelated functions: providing application programmers (and application programs, naturally) a clean abstract set of resources instead of the messy hardware ones and managing these hardware resources. Depending on who is doing the talking, you might hear mostly about one function or the other. Let us now look at both.</p>
 
 <h3 align="justify"><b>1.1.1 The Operating System as an Extended Machine<b></h3>
 
