@@ -3,9 +3,9 @@
 
 ## Sebutkan minimal 3 komponen sistem operasi
 - a. Komponen Sistem Operasi<br>
-    ![so1]()<br>
-    ![so2]()<br>
-    ![so3]()<br>
+    ![SO1](/SO1.png)<br>
+    ![SO2]()<br>
+    ![SO3]()<br>
 - b. Layanan Sistem Operasi<br>
     ![layanan1]()<br>
     ![layanan2]()<br>
