@@ -21,13 +21,13 @@
 
 ## Cara membuat folder
 - Komponen Sistem Operasi<br>
-    <p> pertama, buka Finder dan kalian akan melihat sidebar dengan option Documents</P>
+    <p> pertama, buka Finder dan kalian akan melihat sidebar dengan option Documents</p>
     ![folder1](/folder1.png)<br>
-    <p> kedua, pada panel di atas. pilih menu setting atau yang berbentuk gear</P>
+    <p> kedua, pada panel di atas. pilih menu setting atau yang berbentuk gear</p>
     ![folder2](/folder2.png)<br>
-    <p> ketiga, pilih option New Folder</P>
+    <p> ketiga, pilih option New Folder</p>
     ![folder3](/folder3.png)<br>
-    <p> keempat, isi nama folder sesuai keinginan kalian</P>
+    <p> keempat, isi nama folder sesuai keinginan kalian</p>
     ![folder4](/folder4.png)<br>
-    <p> kelima, klik folder baru dan halaman akan kebuka </P>
+    <p> kelima, klik folder baru dan halaman akan kebuka </p>
     ![folder5](/folder5.png)<br>
