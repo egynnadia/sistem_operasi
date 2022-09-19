@@ -19,6 +19,7 @@
     ![sc1](/sc1.png)<br>
     
     <p> 2. jika kita mengarahkan kursor ke ujung atas kiri pada halaman/aplikasi yang sedang dibuka maka akan ada option untuk perintah akses cepat </p>
+    
     ![sc2](/sc2.png)<br>
     
     <p> Pada gambar dibawah jika kita double klik pada sebuah folder maka akan ada option untuk perintah selanjutnya </p>
